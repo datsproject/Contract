@@ -4,24 +4,10 @@ pragma solidity ^0.8.9;
 
 import "./ERC20.sol";
 import "./ERC20Burnable.sol";
-import "./Ownable.sol";
 
-contract Contract is ERC20, ERC20Burnable, Ownable {
+contract Contract is ERC20, ERC20Burnable{
 
-	uint256 totalsupply;
-	uint256 total;
-    uint8 decimal;
-    constructor(string memory name, string memory symbol, uint8 _decimal, uint256 initialSupply, uint256 _totalSupply) ERC20(name, symbol, decimal) {
-        uint256 amount = initialSupply * 10 ** decimal;
-		totalsupply = _totalSupply * 10 ** decimal;
-        _mint(msg.sender, amount);
-		total += amount;
-        decimal = _decimal;
-    }
-
-    function mint(address to, uint256 amount) public onlyOwner {
-		uint256 control = amount * 10 ** decimal;
-		require(total + control <= totalsupply , "Total supply reached");
-        _mint(to, amount * 10 ** decimals());
+    constructor(string memory name, string memory symbol, uint8 _decimal, uint256 _totalSupply, address multiSigVault) ERC20(name, symbol, _decimal) {
+        _mint(multiSigVault, _totalSupply);
     }
 }
