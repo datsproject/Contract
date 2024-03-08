@@ -1,3 +1,3 @@
 # Solidity Smart Contracts
 
-Smart Contracts
+Smart Contract
